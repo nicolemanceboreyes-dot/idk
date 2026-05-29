@@ -289,8 +289,22 @@ def main(page: ft.Page):
         teams_view.visible = True
 
     def go_topics(e):
-        teams_view.visible = False
-        topic_view.visible = True
+        try:
+            if len(team1) == 0:
+                raise ValueError("Add at least 1 player to Team 1")
+
+            if len(team2) == 0:
+                raise ValueError("Add at least 1 player to Team 2")
+
+            teams_view.visible = False
+            topic_view.visible = True
+
+        except ValueError as error:
+            if len(team1) == 0:
+                team1_text.value = "❌ Error: " + str(error)
+
+            elif len(team2) == 0:
+                team2_text.value = "❌ Error: " + str(error)
 
     start_button = ft.Button("START GAME ▶️", on_click=start_intro, width=300)
     intro_view = ft.Column([logo, start_button], horizontal_alignment=ft.CrossAxisAlignment.CENTER)

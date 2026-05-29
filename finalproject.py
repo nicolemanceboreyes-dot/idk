@@ -68,16 +68,26 @@ def main(page: ft.Page):
         return text
 
     def add_team1(e):
-        if input_team1.value != "":
-            team1.append(input_team1.value)
-            team1_text.value = "Team 1: " + make_team_text(team1)
-            input_team1.value = ""
+        try:
+            if len(input_team1.value) < 3:
+                raise ValueError("Name must have at least 3 letters")
+            if input_team1.value != "":
+                team1.append(input_team1.value)
+                team1_text.value = "Team 1: " + make_team_text(team1)
+                input_team1.value = ""
+        except ValueError as error:
+            team1_text.value = "❌ Error: " + str(error)
 
     def add_team2(e):
-        if input_team2.value != "":
-            team2.append(input_team2.value)
-            team2_text.value = "Team 2: " + make_team_text(team2)
-            input_team2.value = ""
+        try:
+            if len(input_team2.value) < 3:
+                raise ValueError("Name must have at least 3 letters")
+            if input_team2.value != "":
+                team2.append(input_team2.value)
+                team2_text.value = "Team 2: " + make_team_text(team2)
+                input_team2.value = ""
+        except ValueError as error:
+            team2_text.value = "❌ Error: " + str(error)
 
     def choose_entertainment(e):
         current_category[0] = "Entertainment 🎬"
@@ -217,46 +227,51 @@ def main(page: ft.Page):
     page.on_keyboard_event = key_pressed
 
     def submit_answer(e):
-        user_answer = answer_input.value.lower()
-        if user_answer in current_answers and user_answer not in guessed_answers:
-            guessed_answers.append(user_answer)
-            if current_turn[0] == "TEAM 1":
-                team1_score[0] += 1
-            else:
-                team2_score[0] += 1
-            score_text.value = "TEAM 1: " + str(team1_score[0]) + " | TEAM 2: " + str(team2_score[0])
-            answers_left = len(current_answers) - len(guessed_answers)
-            answers_left_text.value = "Answers Left: " + str(answers_left)
-            result_text.value = "✅ Correct! " + user_answer
-            answer_input.value = ""
-
-            if answers_left == 0:
-                all_answers = make_answers_text(current_answers)
-                result_text.value = "🎉 ALL ANSWERS FOUND!" + all_answers
-                submit_button.visible = False
-                next_button.visible = True
-            else:
-                buzz_text.value = current_turn[0] + " KEEP GOING!"
-
-        elif user_answer in guessed_answers:
-            result_text.value = "⚠️ That answer was already used! ⚠️"
-
-        else:
-            result_text.value = "❌ Wrong Answer!"
-            if first_wrong[0] == True:
-                first_wrong[0] = False
-                steal_mode[0] = True
+        try:
+            user_answer = answer_input.value.lower()
+            if answer_input.value == "":
+                raise ValueError("You cannot leave the answer empty")
+            if user_answer in current_answers and user_answer not in guessed_answers:
+                guessed_answers.append(user_answer)
                 if current_turn[0] == "TEAM 1":
-                    current_turn[0] = "TEAM 2"
+                    team1_score[0] += 1
                 else:
-                    current_turn[0] = "TEAM 1"
-                buzz_text.value = "🔥" + current_turn[0] + " CAN STEAL!"
+                    team2_score[0] += 1
+                score_text.value = "TEAM 1: " + str(team1_score[0]) + " | TEAM 2: " + str(team2_score[0])
+                answers_left = len(current_answers) - len(guessed_answers)
+                answers_left_text.value = "Answers Left: " + str(answers_left)
+                result_text.value = "✅ Correct! " + user_answer
+                answer_input.value = ""
 
-            elif steal_mode[0] == True:
-                all_answers = make_answers_text(current_answers)
-                result_text.value = "❌ STEAL FAILED!\n" + "Possible answers:\n" + all_answers
-                submit_button.visible = False
-                next_button.visible = True
+                if answers_left == 0:
+                    all_answers = make_answers_text(current_answers)
+                    result_text.value = "🎉 ALL ANSWERS FOUND!" + all_answers
+                    submit_button.visible = False
+                    next_button.visible = True
+                else:
+                    buzz_text.value = current_turn[0] + " KEEP GOING!"
+
+            elif user_answer in guessed_answers:
+                result_text.value = "⚠️ That answer was already used! ⚠️"
+
+            else:
+                result_text.value = "❌ Wrong Answer!"
+                if first_wrong[0] == True:
+                    first_wrong[0] = False
+                    steal_mode[0] = True
+                    if current_turn[0] == "TEAM 1":
+                        current_turn[0] = "TEAM 2"
+                    else:
+                        current_turn[0] = "TEAM 1"
+                    buzz_text.value = "🔥" + current_turn[0] + " CAN STEAL!"
+
+                elif steal_mode[0] == True:
+                    all_answers = make_answers_text(current_answers)
+                    result_text.value = "❌ STEAL FAILED!\n" + "Possible answers:\n" + all_answers
+                    submit_button.visible = False
+                    next_button.visible = True
+        except ValueError as error:
+            result_text.value = "❌ Error: " + str(error)
 
     def next_question(e):
         current_question[0] += 1

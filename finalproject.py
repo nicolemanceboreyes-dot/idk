@@ -269,14 +269,17 @@ def main(page: ft.Page):
 
     def next_question(e):
         current_question[0] += 1
-        if len(team1) > 0:
-            random_number = random.randint(0, len(team1)-1)
-            current_player1[0] = team1[random_number]
-            team1_player_text.value = "Team 1 Player: " + current_player1[0]
-        if len(team2) > 0:
-            random_number = random.randint(0,len(team2)-1)
-            current_player2[0] = team2[random_number]
-            team2_player_text.value = "Team 2 Player: " + current_player2[0]
+        if len(team1) > 1:
+            old_player = current_player1[0]
+            while current_player1[0] == old_player:
+                random_number = random.randint(0, len(team1) - 1)
+                current_player1[0] = team1[random_number]
+        if len(team2) > 1:
+            old_player = current_player2[0]
+            while current_player2[0] == old_player:
+                random_number = random.randint(0, len(team2) - 1)
+                current_player2[0] = team2[random_number]
+        player_text.value = current_player1[0] + " VS " + current_player2[0]
         show_question()
 
     def restart(e):

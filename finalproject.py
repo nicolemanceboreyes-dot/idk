@@ -9,47 +9,21 @@ def main(page: ft.Page):
     page.vertical_alignment = ft.MainAxisAlignment.CENTER
 
     quizzes = {
-        "Entertainment 🎬": {"questions": ["Name an artist people avoid singing at karaoke.",
-                "Name a movie genre better in theaters.",
-                "Name a famous animated dog.",
-                "Name something people buy at a concert."],
-            "correct": [["mariah carey", "adele", "beyonce", "taylor swift", "ariana grande"],
-                ["action", "horror", "comedy", "fantasy", "science fiction"],
-                ["scooby doo", "snoopy", "pluto", "blue", "brian"],
-                ["shirt", "food", "poster", "tickets", "glow sticks"]]},
-        "Everyday Life 🏠": {"questions": ["Name something you find in a classroom.",
-                "Name something people forget at home.",
-                "Name something found in a refrigerator.",
-                "Name something people do before school."],
-            "correct": [["pencil", "teacher", "desk", "computer", "books"], 
-                ["phone", "wallet", "keys", "homework", "lunch"],
-                ["milk", "eggs", "juice", "water", "cheese"],
-                ["brush teeth", "eat breakfast", "change clothes", "pack backpack", "sleep"]]},
-        "Funny & Random 👻": {
-            "questions": ["What do people do after seeing a ghost?",
-                "Name something people are scared of.",
-                "Name something people yell during traffic."],
-            "correct": [["run", "scream", "pray", "cry", "hide"],
-                ["spiders", "heights", "snakes", "darkness", "clowns"],
-                ["move", "watch out", "go", "idiot", "hurry"]]},
-        "Food & Drinks 🍕": {"questions": [
-                "Name a popular pizza topping.",
-                "Name something people drink in the morning.",
-                "Name a fast food restaurant.",
-                "Name something eaten at the movies."],
-            "correct": [["pepperoni", "cheese", "mushrooms", "ham", "sausage"],
-                ["coffee", "juice", "milk", "tea", "water"],
-                ["mcdonalds", "burger king", "wendys", "kfc", "subway"],
-                ["popcorn", "candy", "nachos", "hotdog", "chips"]]},
-        "Sports & Games ⚽": {
-            "questions": ["Name a sport played with a ball.",
-                "Name something athletes wear.",
-                "Name a popular video game.",
-                "Name something people do at the gym."],
-            "correct": [["basketball", "soccer", "baseball", "football", "volleyball"],
-                ["shoes", "jersey", "shorts", "helmet", "gloves"],
-                ["minecraft", "fortnite", "roblox", "fifa", "call of duty"],
-                ["run", "lift weights", "stretch", "exercise", "bike"]]}}
+        "Entertainment 🎬": 
+        {"questions": ["Name an artist people avoid singing at karaoke.", "Name a movie genre better in theaters.", "Name a famous animated dog.", "Name something people buy at a concert."],
+            "correct": [["mariah carey", "adele", "beyonce", "taylor swift", "ariana grande"], ["action", "horror", "comedy", "fantasy", "fiction", "romance"], ["scooby doo", "snoopy", "pluto", "blue", "brian"], ["merch", "clothes", "food", "drinks", "tickets", "glow sticks"]]},
+        "Everyday Life 🏠": 
+        {"questions": ["Name something you find in a classroom.", "Name something people forget at home.", "Name something found in a refrigerator.", "Name something people do before school."],
+            "correct": [["pencil", "teacher", "desk", "computer", "books", "students", "board"], ["phone", "wallet", "keys", "homework", "lunch", "purse"], ["milk", "eggs", "juice", "water", "cheese", "yogurt", "butter"], ["brush teeth", "eat breakfast", "change clothes", "pack backpack", "sleep", "get ready"]]},
+        "Funny & Random 👻": 
+        {"questions": ["What do people do after seeing a ghost?", "Name something people are scared of.", "Name something people yell during traffic."],
+            "correct": [["run", "scream", "pray", "cry", "hide", "laugh"], ["spiders", "heights", "snakes", "darkness", "clowns", "ocean"], ["move", "watch out", "go", "idiot", "hurry", "move out of the way"]]},
+        "Food & Drinks 🍕": 
+        {"questions": ["Name a popular pizza topping.", "Name something people drink in the morning.", "Name a fast food restaurant.", "Name something eaten at the movies."],
+            "correct": [["pepperoni", "cheese", "mushrooms", "ham", "sausage"], ["coffee", "juice", "milk", "tea", "water"], ["McDonalds", "Burger King", "Wendys", "KFC", "Taco Bell", "Subway"], ["popcorn", "candy", "nachos", "hotdog", "chips"]]},
+        "Sports & Games ⚽": 
+        {"questions": ["Name a sport played with a ball.", "Name something athletes wear.", "Name a popular video game.","Name something people do at the gym."],
+            "correct": [["Basketball", "Soccer", "Baseball", "Football", "Volleyball", "Tennis"], ["shoes", "jersey", "shorts", "helmet", "gloves"], ["Minecraft", "Fortnite", "Roblox", "FIFA", "Call of Duty", "Sims 4", "League of Legens", "GTA"], ["run", "lift weights", "stretch", "exercise", "bike", "lose weight", "cardio", "legs", "chest", "arms", "glutes"]]}}
     
     team1 = []
     team2 = []

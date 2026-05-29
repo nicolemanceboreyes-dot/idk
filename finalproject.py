@@ -1,6 +1,5 @@
 import flet as ft
 import random
-import time
 
 def main(page: ft.Page):
     page.title = "Family Feud Game"

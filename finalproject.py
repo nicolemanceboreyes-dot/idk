@@ -19,7 +19,7 @@ def main(page: ft.Page):
         "correct":[["run", "scream", "pray", "cry", "hide"],["spiders", "heights", "snakes", "darkness", "clowns"],["move", "watch out", "go", "idiot", "hurry"]]},
         "Food & Drinks 🍕":
         {"questions":["Name a popular pizza topping.", "Name something people drink in the morning.", "Name a fast food restaurant.", "Name something eaten at the movies."],
-        "correct":[["pepperoni", "cheese", "mushrooms", "ham", "sausage"],["coffee", "juice", "milk", "tea", "water"],["McDonalds", "Burger King", "Wendys", "KFC", "Subway", "Taco Bell"],["popcorn", "candy", "nachos", "chips"]]},
+        "correct":[["pepperoni", "cheese", "mushrooms", "ham", "sausage"],["coffee", "juice", "milk", "tea", "water"],["mcdonalds", "burger king", "wendys", "kfc", "subway", "taco bell"],["popcorn", "candy", "nachos", "chips"]]},
         "Sports & Games ⚽":
         {"questions":["Name a sport played with a ball.", "Name something athletes wear.", "Name a popular video game.", "Name something people do at the gym."],
         "correct":[["basketball", "soccer", "baseball", "football", "volleyball", "tennis"],["shoes", "jersey", "shorts", "helmet", "suit"],["Minecraft", "Fortnite", "Roblox", "FIFA", "GTA", "Sims 4", "League of Legends"],["run", "lift weights", "stretch", "exercise", "cardio", "lose weight"]]}}
@@ -60,11 +60,11 @@ def main(page: ft.Page):
 
     def make_team_text(team):
         text = ""
-        for person in team:
+        for player in team:
             if text == "":
-                text = person
+                text = player
             else:
-                text = text + ", " + person
+                text = text + ", " + player
         return text
 
     def add_team1(e):
@@ -116,12 +116,6 @@ def main(page: ft.Page):
 
     def spin_team1_player(e):
         if len(team1) > 0:
-            spin_list = ["🔄", "🔃"]
-            for i in range(12):
-                wheel_team1.value = spin_list[0]
-                time.sleep(0.04)
-                wheel_team1.value = spin_list[1]
-                time.sleep(0.04)
             wheel_team1.value = "✅"
             random_number = random.randint(0,len(team1)-1)
             current_player1[0] = team1[random_number]
@@ -129,12 +123,6 @@ def main(page: ft.Page):
 
     def spin_team2_player(e):
         if len(team2) > 0:
-            spin_list = ["🔄", "🔃"]
-            for i in range(12):
-                wheel_team2.value = spin_list[0]
-                time.sleep(0.04)
-                wheel_team2.value = spin_list[1]
-                time.sleep(0.04)
             wheel_team2.value = "✅"
             random_number = random.randint(0,len(team2)-1)
             current_player2[0] = team2[random_number]
@@ -154,7 +142,7 @@ def main(page: ft.Page):
         game_view.visible = True
         show_question()
 
-    def make_answers_text(answer_list):
+    def show_answers(answer_list):
         final_text = ""
         for answer in answer_list:
             if final_text == "":
@@ -244,7 +232,7 @@ def main(page: ft.Page):
                 answer_input.value = ""
 
                 if answers_left == 0:
-                    all_answers = make_answers_text(current_answers)
+                    all_answers = show_answers(current_answers)
                     result_text.value = "🎉 ALL ANSWERS FOUND!" + all_answers
                     submit_button.visible = False
                     next_button.visible = True
@@ -255,7 +243,7 @@ def main(page: ft.Page):
                 result_text.value = "⚠️ That answer was already used! ⚠️"
 
             else:
-                result_text.value = "❌ Wrong Answer!"
+                result_text.value = "❌ WRONG ANSWER!"
                 if first_wrong[0] == True:
                     first_wrong[0] = False
                     steal_mode[0] = True
@@ -266,7 +254,7 @@ def main(page: ft.Page):
                     buzz_text.value = "🔥" + current_turn[0] + " CAN STEAL!"
 
                 elif steal_mode[0] == True:
-                    all_answers = make_answers_text(current_answers)
+                    all_answers = show_answers(current_answers)
                     result_text.value = "❌ STEAL FAILED!\n" + "Possible answers:\n" + all_answers
                     submit_button.visible = False
                     next_button.visible = True
@@ -309,7 +297,7 @@ def main(page: ft.Page):
     confirm_button = ft.Button("START THE QUIZ", on_click=start_game)
 
     instructions_button = ft.Button("CONTINUE ➡️", on_click=go_teams)
-    instructions_view = ft.Column([ft.Text("📜 HOW TO PLAY", size=30, weight=ft.FontWeight.BOLD), ft.Text("1. Add players to both teams.\n" + "2. Choose a category.\n" + "3. Spin to choose one player from each team.\n" + "4. TEAM 1 presses A to buzz.\n" + "5. TEAM 2 presses L to buzz.\n" + "6. Keep answering until getting one wrong.\n" + "7. Other team gets one steal chance.\n" + "8. Team with most points wins! 🏆\n", size=20, text_align=ft.TextAlign.CENTER), instructions_button], horizontal_alignment=ft.CrossAxisAlignment.CENTER, visible=False)
+    instructions_view = ft.Column([ft.Text("📜 HOW TO PLAY: ", size=30, weight=ft.FontWeight.BOLD), ft.Text("1. Add players to both teams (MAX 5).\n" + "2. Choose a category.\n" + "3. Spin to choose one player from each team.\n" + "4. TEAM 1 presses A to buzz.\n" + "5. TEAM 2 presses L to buzz.\n" + "6. Keep answering until getting one wrong.\n" + "7. Other team gets one steal chance.\n" + "8. Team with most points wins! 🏆\n", size=20, text_align=ft.TextAlign.CENTER), instructions_button], horizontal_alignment=ft.CrossAxisAlignment.CENTER, visible=False)
 
     entertainment_button = ft.Button("Entertainment 🎬", on_click=choose_entertainment, width=300)
     everyday_button = ft.Button("Everyday Life 🏠", on_click=choose_everyday, width=300)
@@ -330,8 +318,8 @@ def main(page: ft.Page):
     next_button = ft.Button("NEXT QUESTION ➡️", on_click=next_question, visible=False)
 
     teams_view = ft.Column([ft.Text("👥 ADD TEAM MEMBERS", size=25), input_team1, add_team1_button, team1_text, input_team2, add_team2_button, team2_text, next_page_button], visible=False)
-    wheel_view = ft.Column([ft.Text("🎡 READY TO START?", size=25), confirm_button], horizontal_alignment=ft.CrossAxisAlignment.CENTER, visible=False)
-    player_view = ft.Column([ft.Text("🔥 FAMILY FEUD FACE OFF", size=28), ft.Row([ft.Column([wheel_team1, spin_team1_button, team1_player_text], horizontal_alignment=ft.CrossAxisAlignment.CENTER), ft.Column([wheel_team2, spin_team2_button, team2_player_text], horizontal_alignment=ft.CrossAxisAlignment.CENTER)], alignment=ft.MainAxisAlignment.CENTER), begin_button], horizontal_alignment=ft.CrossAxisAlignment.CENTER, visible=False)
+    wheel_view = ft.Column([ft.Text("READY TO START?", size=25), confirm_button], horizontal_alignment=ft.CrossAxisAlignment.CENTER, visible=False)
+    player_view = ft.Column([ft.Text("🔥 FAMILY FEUD FACE OFF 🔥", size=28), ft.Row([ft.Column([wheel_team1, spin_team1_button, team1_player_text], horizontal_alignment=ft.CrossAxisAlignment.CENTER), ft.Column([wheel_team2, spin_team2_button, team2_player_text], horizontal_alignment=ft.CrossAxisAlignment.CENTER)], alignment=ft.MainAxisAlignment.CENTER), begin_button], horizontal_alignment=ft.CrossAxisAlignment.CENTER, visible=False)
     game_view = ft.Column([player_text, score_text, answers_left_text, question_text, buzz_text, answer_input, submit_button, next_button, result_text, restart_button], spacing=20, horizontal_alignment=ft.CrossAxisAlignment.CENTER, visible=False)
     page.add(intro_view, instructions_view, teams_view, topic_view, wheel_view, player_view, game_view)
-ft.run(main=main,assets_dir="assets")
+ft.run(main=main, assets_dir="assets")

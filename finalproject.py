@@ -138,9 +138,16 @@ def main(page: ft.Page):
         score_text.value = "TEAM 1: 0 | TEAM 2: 0"
 
     def begin_questions(e):
-        player_view.visible = False
-        game_view.visible = True
-        show_question()
+        try:
+            if current_player1[0] == "":
+                raise ValueError("Team 1 must choose a player first")
+            if current_player2[0] == "":
+                raise ValueError("Team 2 must choose a player first")
+            player_view.visible = False
+            game_view.visible = True
+            show_question()
+        except ValueError as error:
+            result_text.value = "❌ Error: " + str(error)
 
     def show_answers(answer_list):
         final_text = ""
